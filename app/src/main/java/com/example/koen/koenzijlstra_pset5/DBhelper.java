@@ -51,7 +51,7 @@ public class DBhelper extends SQLiteOpenHelper {
         firsttime(db);
     }
 
-    private void firsttime(SQLiteDatabase db){
+    public void firsttime(SQLiteDatabase db){
         // create the examples to show when database is created
         final String ex1 = "A list";
         final String ex2 = "Hold to delete";
