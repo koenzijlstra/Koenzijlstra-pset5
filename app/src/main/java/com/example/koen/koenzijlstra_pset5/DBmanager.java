@@ -28,8 +28,9 @@ class DBmanager {
     private static final String _MASTERID = "_id";
     private static final String LISTNAME = "listname";
 
-    private ArrayList<Masterobject> listofmasters;
     private SQLiteDatabase db;
+    private ArrayList<Masterobject> listofmasters;
+
     private DBhelper dBhelper = null;
 
     private static DBmanager ourInstance = new DBmanager();
@@ -39,7 +40,6 @@ class DBmanager {
     }
 
     private DBmanager(){
-
     }
 
     void firstlaunch(Context context){
@@ -75,7 +75,7 @@ class DBmanager {
         Integer masterid = 0;
         String[] tablevalues = new String[] {_MASTERID, LISTNAME};
         // newest object gets highest id
-        Cursor cursor = db.query(MASTERTABLE_NAME, tablevalues, LISTNAME + "=" + "'" + listname + "'", null, null, null, null);
+        Cursor cursor = db.query(MASTERTABLE_NAME, tablevalues, LISTNAME + " = " + "'" + listname + "'", null, null, null, null);
         if (cursor.moveToFirst()){
             masterid = cursor.getInt(0);
             do {
@@ -134,5 +134,9 @@ class DBmanager {
         contentValues.put (CHECKED, checked);
         db.update(TODOTABLE_NAME, contentValues, _TODOID + " = " + todo.getId(), null);
         todo.setChecked(checked);
+    }
+
+    ArrayList<Masterobject> getallmasters(){
+        return this.listofmasters;
     }
 }

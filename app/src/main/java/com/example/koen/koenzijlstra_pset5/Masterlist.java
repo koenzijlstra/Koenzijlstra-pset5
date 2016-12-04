@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView;
 import java.util.ArrayList;
@@ -26,38 +28,75 @@ public class Masterlist extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.masterlist);
 
-        // todo lable van arraylist
+
         if (savedInstanceState != null){
-            listofmasters = savedInstanceState.getParcelableArrayList("");
+            listofmasters = savedInstanceState.getParcelableArrayList("masters");
         }
         else {
-            listofmasters = manager.getmasters();
+            listofmasters = manager.getallmasters();
         }
 
         listadapterMaster = new ListadapterMaster(getApplicationContext(), listofmasters);
         listView.setAdapter(listadapterMaster);
 
+        removelistener();
+
         clicklistener();
-        // removelistener
+
     }
 
-    // wat gaat hier nog fout, ging ergens anders ook fout
     protected void clicklistener(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onclick(AdapterView<?> parent, View view, int position, long id){
-                Masterobject masterlist = (Masterobject) listView.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Masterobject masterlisttoparce = (Masterobject) listView.getItemAtPosition(position);
+
                 Intent intent = new Intent(Masterlist.this, list.class);
-                intent.putExtra("masterlist", (Parcelable) masterlist);
+                intent.putExtra("masterlistparce", masterlisttoparce);
                 startActivity(intent);
-                finish();
             }
         });
     }
 
     protected void removelistener(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Masterobject master = (Masterobject) listView.getItemAtPosition(position);
+              manager.deletemaster(master);
+              listadapterMaster.remove(master);
+              listadapterMaster.notifyDataSetChanged();
+              return true;
+            }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putParcelableArrayList("masters", listofmasters);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void addmasterlist(View view){
+        final EditText editText = (EditText) findViewById(R.id.listinput);
+        if (!editText.getText().toString().isEmpty()){
+            manager.newmasterlist(editText.getText().toString());
+            listofmasters = manager.getallmasters();
+            listadapterMaster.notifyDataSetChanged();
+
+            removelistener();
+            clicklistener();
+            editText.setText("");
+            HideKeys();
+        }
+    }
+
+    public void HideKeys() {
+        try  {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

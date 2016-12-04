@@ -8,28 +8,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBhelper extends SQLiteOpenHelper {
 
-    static final String DB_NAME = "lists.db";
-    static final int DATABASE_VERSION = 1;
+    private static final String DB_NAME = "lists.db";
+    private static final int DATABASE_VERSION = 4;
 
     // MASTER TABLE NAME, COLUMNS
-    public static final String MASTERTABLE_NAME = "MASTER";
+    private static final String MASTERTABLE_NAME = "MASTER";
     private static final String _MASTERID = "_id";
     private static final String LISTNAME = "listname";
 
 
     // TO DO ITEMS TABLE NAME AND COLUMNS
     private static final String TODOTABLE_NAME = "todos";
-    public static final String _TODOID = "_id";
-    public static final String TODO = "todo";
-    public static final String CHECKED = "checked";
+    private static final String _TODOID = "_id";
+    private static final String TODO = "todo";
+    private static final String CHECKED = "checked";
     // A COLUMN FOR WHICH OF THE MASTER LISTS IT BELONGS TO
     private static final String MASTER = "master";
 
-    // voorbeeld dat eerste keer er moet staan:
-    public DBhelper(Context context) {
+    private static final String ex1 = "A list";
+    private static final String ex2 = "Hold to delete";
+    private static final String[] extodos = {"Add to-dos below", "Check the checkboxes of the things you did", "Hold a to-do to delete it"};
+
+
+    DBhelper(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
     }
-
 
     // oncreate
     @Override
@@ -43,33 +46,28 @@ public class DBhelper extends SQLiteOpenHelper {
         // create table for all todo items
         db.execSQL("CREATE TABLE " + TODOTABLE_NAME + "(" +
                 _TODOID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TODO + " TEXT NOT NULL, " +
                 MASTER + " INTEGER NOT NULL, " +
+                TODO + " TEXT NOT NULL, " +
                 CHECKED + " BOOLEAN NOT NULL);");
-
 
         firsttime(db);
     }
 
-    public void firsttime(SQLiteDatabase db){
-        // create the examples to show when database is created
-        final String ex1 = "A list";
-        final String ex2 = "Hold to delete";
-        final String[] extodos = {"Add to-dos below", "Check the checkboxes of the things you did", "Hold a to-do to delete it"};
+    private void firsttime(SQLiteDatabase db){
 
         ContentValues example1 = new ContentValues();
-        example1.put(LISTNAME, ex1);
         ContentValues example2 = new ContentValues();
+        example1.put(LISTNAME, ex1);
         example2.put(LISTNAME, ex2);
 
-        db.insert(LISTNAME, null, example1);
-        db.insert(LISTNAME,null, example2);
+        db.insert(MASTERTABLE_NAME, null, example1);
+        db.insert(MASTERTABLE_NAME,null, example2);
 
         Integer idmaster = null;
 
         // for master example
         String[] mastertablevalues = new String[]{_MASTERID, LISTNAME};
-        Cursor cursor = db.query(LISTNAME, mastertablevalues, LISTNAME + "=" + ex1 + "'", null,null,null,null);
+        Cursor cursor = db.query(MASTERTABLE_NAME, mastertablevalues, LISTNAME + "='" + ex1 + "'", null,null,null,null);
         if (cursor.moveToFirst()){
             idmaster = cursor.getInt(0);
         }
@@ -77,12 +75,16 @@ public class DBhelper extends SQLiteOpenHelper {
 
         // insert todo_examples
         if (idmaster != null){
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put(MASTER, idmaster);
+//            contentValues.put(TODO, "HEY");
+//            contentValues.put(CHECKED, Boolean.FALSE);
+//            db.insert(TODOTABLE_NAME, null, contentValues);
             for(int i = 0; i < extodos.length; i++){
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(MASTER, idmaster);
                 contentValues.put(TODO, extodos[i]);
                 contentValues.put(CHECKED, Boolean.FALSE);
-
                 db.insert(TODOTABLE_NAME, null, contentValues);
             }
         }

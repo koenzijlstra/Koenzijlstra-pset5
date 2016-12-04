@@ -9,14 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.koen.koenzijlstra_pset5.list"
-    android:background="@color/darkblue">
-    <TextView
+    android:background="@color/darkblue"><TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lists"
         android:textStyle="bold"
         android:textSize="30sp"
-        android:id="@+id/textView"
+        android:id="@+id/title"
         android:textColor="@color/white"/>
 
     <Button
@@ -27,7 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/button"
-        android:onClick="createchore" />
+        android:onClick="addtodo" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -37,7 +36,7 @@
         android:textColorHint="@color/bluegrey"
         android:textColor="@color/white"
         android:ems="10"
-        android:id="@+id/choreinput"
+        android:id="@+id/input"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/button"
         android:layout_toStartOf="@+id/button" />

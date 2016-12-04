@@ -34,13 +34,15 @@ class ListadapterTodo extends ArrayAdapter<Todo_object> {
         // wat gaat hier fout?
         todocheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
-            public void onCheckChanged(CompoundButton compoundButton, boolean checked){
-                dBmanager.whenchecked(todo, checked);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dBmanager.whenchecked(todo, isChecked);
             }
         });
 
-        todoname.setText(todo.getTodo());
-        todocheckbox.setChecked(todo.getChecked());
+        if (todo != null) {
+            todoname.setText(todo.getTodo());
+            todocheckbox.setChecked(todo.getChecked());
+        }
 
         return convertView;
     }

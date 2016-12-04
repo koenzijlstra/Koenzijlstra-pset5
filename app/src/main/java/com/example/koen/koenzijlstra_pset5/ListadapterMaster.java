@@ -1,6 +1,7 @@
 package com.example.koen.koenzijlstra_pset5;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,9 @@ class ListadapterMaster extends ArrayAdapter<Masterobject> {
         super(context, 0, masterlists);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent){
         final Masterobject masterobj = getItem(position);
 
         if (convertView == null){

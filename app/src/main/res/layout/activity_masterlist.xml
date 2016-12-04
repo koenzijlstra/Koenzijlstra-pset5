@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/button"
-        android:onClick="createchore" />
+        android:onClick="addmasterlist" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:textColorHint="@color/bluegrey"
         android:textColor="@color/white"
         android:ems="10"
-        android:id="@+id/choreinput"
+        android:id="@+id/listinput"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/button"
         android:layout_toStartOf="@+id/button" />

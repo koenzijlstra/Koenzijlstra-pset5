@@ -32,12 +32,6 @@ public class Masterobject implements Parcelable {
         return this.id;
     }
 
-    // log
-    public void masterobjectlog(){
-        Log.d("NAME", this.name);
-        Log.d("ID", this.id.toString());
-    }
-
 
 
 
