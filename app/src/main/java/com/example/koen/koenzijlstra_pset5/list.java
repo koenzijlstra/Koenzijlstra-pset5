@@ -3,6 +3,7 @@ package com.example.koen.koenzijlstra_pset5;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,10 +35,13 @@ public class list extends AppCompatActivity {
         tvtitle = (TextView) findViewById(R.id.title);
         dBmanager = DBmanager.getInstance();
 
+
+
         if (savedInstanceState != null){
             todos = savedInstanceState.getParcelableArrayList("todos");
             tvtitle.setText(savedInstanceState.getString("title"));
             idmaster = savedInstanceState.getInt("idmaster");
+
         }
         else{
             Intent intent = getIntent();
@@ -45,13 +49,25 @@ public class list extends AppCompatActivity {
             idmaster = currentmaster.getId();
             tvtitle.setText(currentmaster.getName());
             todos = dBmanager.gettodos(currentmaster);
+
         }
 
         listview = (ListView) findViewById(R.id.lvtodo);
         adapter = new ListadapterTodo(getApplicationContext(), todos);
         listview.setAdapter(adapter);
 
-        createRemoveListener();
+
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Todo_object todo = (Todo_object) listview.getItemAtPosition(position);
+                dBmanager.deletetodo(todo);
+                adapter.remove(todo);
+                adapter.notifyDataSetChanged();
+                return true;
+                // return false;
+            }
+        });
     }
 
     @Override
@@ -63,16 +79,33 @@ public class list extends AppCompatActivity {
     }
 
     protected void createRemoveListener(){
+        Log.d("infunctie", "message2");
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Todo_object todo = (Todo_object) listview.getItemAtPosition(position);
                 adapter.remove(todo);
                 dBmanager.deletetodo(todo);
-                return false;
+                adapter.notifyDataSetChanged();
+                Log.d("laatst", "msg3");
+                return true;
+                // return false;
             }
         });
     }
+
+//    protected void createdeleter(){
+//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Todo_object todo = (Todo_object) listview.getItemAtPosition(position);
+//                adapter.remove(todo);
+//                dBmanager.deletetodo(todo);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+//    }
 
     protected void addtodo(View view){
         if (editText.getText().toString().isEmpty()){

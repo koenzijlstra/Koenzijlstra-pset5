@@ -9,14 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.koen.koenzijlstra_pset5.list"
-    android:background="@color/darkblue"><TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lists"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:id="@+id/title"
-        android:textColor="@color/white"/>
+    android:background="@color/darkblue">
 
     <Button
         android:text="@string/add"
@@ -41,16 +34,6 @@
         android:layout_toLeftOf="@+id/button"
         android:layout_toStartOf="@+id/button" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lvtodo"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp"
-        android:layout_above="@+id/button" />
-
     <TextView
         android:text="@string/how2"
         android:layout_width="wrap_content"
@@ -60,4 +43,27 @@
         android:layout_alignParentStart="true"
         android:id="@+id/textView2"
         android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lists"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:id="@+id/title"
+        android:textColor="@color/white"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvtodo"
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:layout_above="@+id/button" />
 </RelativeLayout>

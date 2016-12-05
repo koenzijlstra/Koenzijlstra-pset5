@@ -31,7 +31,6 @@ class ListadapterTodo extends ArrayAdapter<Todo_object> {
         CheckBox todocheckbox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
 
-        // wat gaat hier fout?
         todocheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -44,12 +44,16 @@ public class Masterobject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeValue(this.id);
     }
 
     public Masterobject() {
     }
 
     protected Masterobject(Parcel in) {
+        this.name = in.readString();
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Masterobject> CREATOR = new Parcelable.Creator<Masterobject>() {
