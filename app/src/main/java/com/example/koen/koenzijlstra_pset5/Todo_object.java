@@ -52,8 +52,7 @@ class Todo_object implements Parcelable {
         dest.writeValue(this.checked);
     }
 
-//    public Todo_object() {
-//    }
+
 
     private Todo_object(Parcel in) {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());

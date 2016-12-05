@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBhelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "lists.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // MASTER TABLE NAME, COLUMNS
     private static final String MASTERTABLE_NAME = "MASTER";

@@ -4,7 +4,7 @@
     <string name="add">Add</string>
     <string name="hint2">New thing to do</string>
     <string name="hint1">New list</string>
-    <string name="how">Hold to remove</string>
+    <string name="how">Click to see to-dos, hold to remove</string>
     <string name="how2">Check when done, hold to remove</string>
     <string name="lists">Lists</string>
 </resources>
