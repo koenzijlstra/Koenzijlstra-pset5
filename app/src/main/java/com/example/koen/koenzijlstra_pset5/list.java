@@ -56,6 +56,7 @@ public class list extends AppCompatActivity {
         adapter = new ListadapterTodo(getApplicationContext(), todos);
         listview.setAdapter(adapter);
 
+        
 
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
